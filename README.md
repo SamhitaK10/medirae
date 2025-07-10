@@ -21,13 +21,7 @@
 - JSON for local storage
 - Replit for development
 
----
-
-## 📸 Demo Preview
-
-*(Insert screenshot of your app here — you can upload it in the repo and link it)*
-
----
+-
 
 ## 🚀 How to Run
 
