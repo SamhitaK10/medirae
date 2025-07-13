@@ -7,26 +7,42 @@ from datetime import datetime, timedelta
 st.title("MediVault Lite")
 st.subheader("Secure Scan Analysis for Doctors")
 
-# Get username
+# --- USER LOGIN ---
 username = st.text_input("Enter your username:", max_chars=20)
-if not username:
+password = st.text_input("Enter password:", type="password")
+
+if not username or password != "testpass":
+    st.warning("Enter username and correct password to continue. (Hint: password is 'testpass')")
     st.stop()
+
 filename = f"scan_history_{username}.json"
 
-# Load history
+# --- DEMO DATA ---
+if username.lower() == "demo" and not os.path.exists(filename):
+    sample_scan = {
+        "file": "sample_chest_xray.jpg",
+        "result": "Abnormal",
+        "confidence": 87,
+        "note": "Cough and fever for 3 days",
+        "time": (datetime.utcnow() - timedelta(hours=7)).strftime("%Y-%m-%d %H:%M:%S")
+    }
+    with open(filename, "w") as f:
+        json.dump([sample_scan], f, indent=2)
+
+# --- LOAD HISTORY ---
 if os.path.exists(filename):
     with open(filename, "r") as f:
         scan_history = json.load(f)
 else:
     scan_history = []
 
-# Upload & analyze
+# --- UPLOAD & ANALYZE ---
 st.header("Upload and Analyze a Scan")
 scan_file = st.file_uploader("Upload scan file (image or PDF)")
 note = st.text_input("Notes for this scan:")
 
 if st.button("Analyze Scan") and scan_file:
-    result = random.choice(["Normal", "Possible Pneumonia", "Abnormal Shadow"])
+    result = random.choice(["Normal", "Abnormal", "Abnormal Shadow"])
     confidence = random.randint(75, 95)
     pst_time = datetime.utcnow() - timedelta(hours=7)
     timestamp = pst_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -44,11 +60,19 @@ if st.button("Analyze Scan") and scan_file:
         json.dump(scan_history, f, indent=2)
 
     st.success(f"Scan '{scan_file.name}' uploaded and analyzed.")
-    st.write(f"Result: {result} ({confidence}% confidence)")
+    st.write(f"Result: **{result}** ({confidence}% confidence)")
     st.write(f"Note: {note}")
     st.write(f"Date: {timestamp}")
 
-# View history
+    # --- DOWNLOAD REPORT ---
+    report = f"""Scan Report for {scan_file.name}
+Result: {result} ({confidence}% confidence)
+Note: {note}
+Date: {timestamp}
+"""
+    st.download_button("Download Report", report, file_name="scan_report.txt")
+
+# --- SCAN HISTORY ---
 st.header("Scan History")
 if scan_history:
     for scan in reversed(scan_history):
