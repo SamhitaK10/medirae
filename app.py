@@ -4,7 +4,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-st.title("MediVault Lite")
+st.title("Medirae")
 st.subheader("Secure Scan Analysis for Doctors")
 
 # --- USER LOGIN ---
