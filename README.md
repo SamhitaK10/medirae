@@ -1,33 +1,41 @@
-# medivault-lite# MediVault Lite 🩺
+# 🩻 Medirae
 
-**MediVault Lite** is a lightweight cloud-based tool that helps doctors analyze and log patient scan results securely. Built with beginner-friendly Python and Streamlit, it simulates AI scan analysis and allows doctors to store notes, timestamps, and view their full scan history.
-
----
-
-## 💡 Features
-
-- Upload and analyze fake scan files (e.g., X-rays)
-- Simulated AI results with randomized confidence levels
-- Add doctor notes and timestamps
-- Save scan history per doctor (based on username)
-- Streamlit-based interface for web usability
+**Medirae** is a lightweight, secure tool for medical professionals to upload scans (e.g., X-rays, CTs, PDFs), receive instant AI-generated feedback (Normal or Abnormal), and store results with notes and timestamps.  
+It is built for clinics without in-house radiologists, such as urgent care centers, rural hospitals, and student-run clinics.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Features
 
-- Python
-- Streamlit
-- JSON for local storage
-- Replit for development
+- ✅ Upload medical scans (images or PDFs)
+- ✅ AI-generated result: Normal / Abnormal / Shadow
+- ✅ Confidence score display
+- ✅ Add doctor notes for each scan
+- ✅ Timestamped scan history per user
+- ✅ Downloadable report (.txt format)
+- ✅ Demo user with preloaded scan
+- ✅ Simple login with username + password
 
--
+---
 
-## 🚀 How to Run
+## 🧑‍⚕️ Who It's For
 
-1. Clone the repo or open it in Replit  
-2. Install dependencies (only `streamlit` required)
-3. Run with:
+- Urgent care clinics
+- Rural or under-resourced health centers
+- Student-run or nonprofit medical clinics
+- Medical researchers working with diagnostic workflows
 
-```bash
-streamlit run app.py
+---
+
+## 🖼 Demo Screenshots
+
+> Coming soon
+
+---
+
+## 🛠 How to Run
+
+1. Clone this repo  
+   ```bash
+   git clone https://github.com/yourusername/medirae.git
+   cd medirae
