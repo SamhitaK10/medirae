@@ -36,6 +36,9 @@ if os.path.exists(filename):
 else:
     scan_history = []
 
+# Convert scan history to dict (avoid duplicates by filename)
+scan_dict = {scan["file"]: scan for scan in scan_history}
+
 # --- UPLOAD & ANALYZE ---
 st.header("Upload and Analyze a Scan")
 scan_file = st.file_uploader("Upload scan file (image or PDF)")
@@ -55,9 +58,10 @@ if st.button("Analyze Scan") and scan_file:
         "time": timestamp
     }
 
-    scan_history.append(new_scan)
+    scan_dict[scan_file.name] = new_scan
+
     with open(filename, "w") as f:
-        json.dump(scan_history, f, indent=2)
+        json.dump(list(scan_dict.values()), f, indent=2)
 
     st.success(f"Scan '{scan_file.name}' uploaded and analyzed.")
     st.write(f"Result: **{result}** ({confidence}% confidence)")
@@ -73,6 +77,7 @@ Date: {timestamp}
     st.download_button("Download Report", report, file_name="scan_report.txt")
 
 # --- SCAN HISTORY ---
+scan_history = list(scan_dict.values())
 st.header("Scan History")
 if scan_history:
     for scan in reversed(scan_history):
